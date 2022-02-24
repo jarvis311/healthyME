@@ -55,6 +55,7 @@ app.post("/login",loginUserValidation,userController.login)
 
 app.post("/catagory",catagoryController.addUCatagory)
 app.get("/getcatagory",catagoryController.getAllCatagory)
+app.put("/updateCatagory",catagoryController.updateCatagory)
 app.delete("/catagory/:catagoryId",catagoryController.deleteCatagory)
 
 // product 

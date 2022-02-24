@@ -37,6 +37,23 @@ module.exports.getAllCatagory = function (req, res) {
         }
     })
 }
+// Update catagory
+
+module.exports.updateCatagory  = function(req,res){
+    let catagoryId = req.body.catagoryId
+    let CatagoryName = req.body.CatagoryName
+    let role = req.body.role
+
+    CatagoryModel.updateOne({_id:catagoryId},{CatagoryName:CatagoryName, role:role }, function(err,data){
+        if (err) {
+            res.json({ msg: "SMW", data: err, status: -1 })//-1  [ 302 404 500 ]
+        } else {
+            res.json({ msg: "user modified...", data: data, status: 200 })//http status code 
+        }
+    })
+
+}
+
 
 
 //delete
