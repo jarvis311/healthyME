@@ -26,7 +26,7 @@ module.exports.addProduct = function (req, res) {
         if (err) {
             res.json({ msg: "SMW", data: err, status: -1 })//-1  [ 302 404 500 ]
         } else {
-            res.json({ msg: "signup done", data: data, status: 200 })//http status code 
+            res.json({ msg: "Product Added", data: data, status: 200 })//http status code 
         }
     })
 }
@@ -39,7 +39,7 @@ module.exports.getAllProduct = function (req, res) {
         if (err) {
             res.json({ msg: "SMW", data: err, status: -1 })//-1  [ 302 404 500 ]
         } else {
-            res.json({ msg: "users ret...", data:product, status: 200 })//http status code 
+            res.json({ msg: "List of all product...", data:product, status: 200 })//http status code 
         }
     })
 }
@@ -53,7 +53,7 @@ module.exports.deleteProduct = function(req,res){
         if (err) {
             res.json({ msg: "SMW", data: err, status: -1 })//-1  [ 302 404 500 ]
         } else {
-            res.json({ msg: "user removed...", data: data, status: 200 })//http status code 
+            res.json({ msg: "Product removed...", data: data, status: 200 })//http status code 
         }
     })
 }
@@ -75,7 +75,7 @@ module.exports.updateProduct = function(req,res){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{
-            res.json({msg:"updated...",status:200,data:data})
+            res.json({msg:"Product updated...",status:200,data:data})
         }
     })
 

@@ -6,9 +6,11 @@ const roleController = require("./controller/role_comtroler");
 const userController = require("./controller/user-controler");
 const productController = require("./controller/product-controler")
 const catagoryController = require("./controller/catagory-controler")
-const feedbackController = require("./controller/feedback-controler")
+const feedbackController = require("./controller/feedback-controler");
+const { addUserValidation, loginUserValidation, productValidation, roleValidation} = require("./validation/userValidation");
 
-const app = express()
+
+const app = express();
 //middle ware 
 app.use(express.json()) //mobile -> accept json data from request and set data into body 
 app.use(express.urlencoded({extended:true})) //web --> accept url encoded data from request and set data into body  
@@ -36,7 +38,7 @@ app.post("/saveuser",sessionController.saveuser)
 
 
 //role 
-app.post("/roles",roleController.addRole)
+app.post("/roles",roleValidation, roleController.addRole)
 app.get("/getroles",roleController.getAllRoles)
 app.delete("/roles/:roleId",roleController.deleteRole)
 app.put("/updateroles",roleController.updateRole)
@@ -44,11 +46,11 @@ app.put("/updateroles",roleController.updateRole)
 
 
 //user 
-app.post("/users",userController.addUser)
+app.post("/users", addUserValidation, userController.addUser)
 app.get("/getuser",userController.getAllUsers)
 app.put("/updateuser",userController.updateUser)
 app.delete("/deleteusers/:userId",userController.deleteUser)
-app.post("/login",userController.login)
+app.post("/login",loginUserValidation,userController.login)
 //Catagory
 
 app.post("/catagory",catagoryController.addUCatagory)
@@ -57,7 +59,7 @@ app.delete("/catagory/:catagoryId",catagoryController.deleteCatagory)
 
 // product 
 
-app.post("/addproduct",productController.addProduct)
+app.post("/addproduct",productValidation, productController.addProduct)
 app.get("/getproduct",productController.getAllProduct)
 app.put("/updateproduct",productController.updateProduct)
 app.delete("/product/:productId",productController.deleteProduct)

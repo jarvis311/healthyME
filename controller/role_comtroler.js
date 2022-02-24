@@ -32,7 +32,7 @@ module.exports.getAllRoles = function(req,res){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{
-            res.json({msg:"roles...",status:200, data:roles})
+            res.json({msg:"List of all roles...",status:200, data:roles})
 
         }
     })
@@ -48,7 +48,7 @@ module.exports.deleteRole = function(req,res){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{
-            res.json({msg:"removed...",status:200,data:data})
+            res.json({msg:" Role is removed...",status:200,data:data})
         }
     })
 }
@@ -66,7 +66,7 @@ module.exports.updateRole = function(req,res){
         if(err){
             res.json({msg:"Something went wrong!!!",status:-1,data:err})
         }else{
-            res.json({msg:"updated...",status:200,data:data})
+            res.json({msg:"role updated...",status:200,data:data})
         }
     })
 

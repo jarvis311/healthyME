@@ -17,7 +17,7 @@ function saveUser(req,res){
     console.log(req.body)//
 
     res.json({
-        msg:"done danadone....",
+        msg:"....",
         status:200,
         data:req.body
     })

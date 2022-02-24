@@ -37,7 +37,7 @@ module.exports.getAllUsers = function (req, res) {
         if (err) {
             res.json({ msg: "SMW", data: err, status: -1 })//-1  [ 302 404 500 ]
         } else {
-            res.json({ msg: "users ret...", data: data, status: 200 })//http status code 
+            res.json({ msg: "List of all users ...", data: data, status: 200 })//http status code 
         }
     })
 }
