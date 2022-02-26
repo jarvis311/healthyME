@@ -1,5 +1,6 @@
 const UserModel = require("../models/user-model")
 const bcrypt = require("bcrypt")
+const mongooseUniqueValidator = require("mongoose-unique-validator")
 
 //add [ POST ]
 module.exports.addUser = function (req, res) {
@@ -8,7 +9,7 @@ module.exports.addUser = function (req, res) {
     let email = req.body.email
     let password = req.body.password
     let role = req.body.role
-    //encrypt
+    //encrypt password
     let encPassword = bcrypt.hashSync(password,10)
 
     let user = new UserModel({
@@ -17,7 +18,6 @@ module.exports.addUser = function (req, res) {
         password: encPassword,
         role: role
     })
-
 
 
     user.save(function (err, data) {

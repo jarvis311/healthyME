@@ -2,6 +2,7 @@
 const { product } = require("./addProduct");
 const { user } = require("./addUser");
 const { loginUser } = require("./loginUser");
+const {role } = require("./addRole")
 // const Schema = require("./user");
 
 module.exports = {
@@ -42,7 +43,7 @@ module.exports = {
         }
     },
     roleValidation : async (req, res, next) =>{
-        const value = await product.validate(req.body)
+        const value = await role.validate(req.body)
         if(value.error){
             res.json({
                 success:0,
