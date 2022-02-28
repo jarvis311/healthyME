@@ -1,5 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors')
+
+
 
 const sessionController = require("./controller/session-controller");
 const roleController = require("./controller/role_comtroler");
@@ -14,7 +17,7 @@ const app = express();
 //middle ware 
 app.use(express.json()) //mobile -> accept json data from request and set data into body 
 app.use(express.urlencoded({extended:true})) //web --> accept url encoded data from request and set data into body  
-
+app.use(cors())
 
 //database 
 mongoose.connect('mongodb://localhost:27017/healthymedb',function(err){
