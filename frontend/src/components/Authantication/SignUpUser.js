@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import image1 from '../image/img2.svg'
+import image1 from './image/img2.svg'
 export const SignUpUser = () => {
 
     const [credential, setCredential] = useState({ firstName: "", email: "", password: "", role: "" })
@@ -13,14 +13,17 @@ export const SignUpUser = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ firstName, email, password, role })
+            body: JSON.stringify({ firstName, email, password, role: "620f35aa44ccdc8ede3e90df" })
         });
 
         const json = await response.json();
         console.log(json);
 
-        if(json.suceess){
+        if (json.register) {
+            alert("You are register")
             navigate('/signin')
+        } else {
+            alert("invalid Credential")
         }
 
     }
@@ -31,30 +34,8 @@ export const SignUpUser = () => {
 
 
     return (
-        <div>
+     
 
-            {/* <form onSubmit={handleSubmit} className="col-md-4 my-5 container">
-                <div>
-                    <h1>Register Here</h1>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="firstName" className="form-label">Name</label>
-                    <input type="text" className="user-form-control" onChange={onchange} id="firstName" name='firstName' />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="user-form-control" onChange={onchange} id="email" name='email' aria-describedby="emailHelp" />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="user-form-control" onChange={onchange} id="password" name='password' />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="role" className="form-label">Role</label>
-                    <input type="text" className="user-form-control" onChange={onchange} id="role" name='role' />
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form> */}
 
 
             <div className="container-fluid UserLogin" >
@@ -85,19 +66,25 @@ export const SignUpUser = () => {
                                 <input type="password" placeholder="Password" onChange={onchange} id="password" name='password' />
                                 <i className="fas fa-lock"></i>
                             </div>
-                            <div className="user-form-control">
-                                <input type="text" placeholder="Role" onChange={onchange} id="role" name='role' />
-                                <i className="fas fa-lock"></i>
-                            </div>
+                             <div className="user-form-control">
+                                <input class="form-control" type="text" onChange={onchange} id="role" name='role' placeholder="You are Register as a user" aria-label="Disabled input example" disabled />
+                                {/* <i className="fas fa-lock"></i> */}
+                                <i className="fa-solid fa-user"></i>
+
+                            </div> 
+
+                           
 
                             <button type='submit' className="submit">Register</button>
                         </form>
+
+                        
                     </div>
                 </section>
 
             </div>
 
-        </div>
+ 
 
 
 

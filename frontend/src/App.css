@@ -78,7 +78,7 @@ section {
     border: none;
 }
 
-input,
+.login-container input,
 button {
     border: none;
     outline: none;
@@ -86,7 +86,7 @@ button {
     font-size: 1.1em;
 }
 
-input {
+.login-container input {
     width: 100%;
     background: #e6e6e6;
     color: #333;
@@ -94,7 +94,7 @@ input {
     padding: 14px 64px;
 }
 
-input ~ i {
+.login-container input ~ i {
     position: absolute;
     left: 32px;
     top: 50%;
@@ -103,7 +103,7 @@ input ~ i {
     transition: color   0.4s;
 }
 
-input:focus ~ i {
+.login-container input:focus ~ i {
     color: #843bc7;
 }
 
@@ -136,3 +136,30 @@ button.submit:hover {
         display: none;
     }
 }
+
+.role{
+   width: 25vw;
+   margin-left: 1rem;
+   border-radius: 2rem;
+}
+.user-form-control label{
+    font-size: 1.5rem;
+    margin-left: 1rem;
+   
+    
+    
+}
+
+
+.product-card{
+    width: 40vh;
+    display: flex;
+}
+.card{
+    margin: 10px;
+    background: rgba(223, 223, 223, 0.651);
+    
+  }
+  .card img{
+    height: 30vh;
+  }

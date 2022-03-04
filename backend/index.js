@@ -22,12 +22,12 @@ app.use(cors())
 //database 
 mongoose.connect('mongodb://localhost:27017/healthymedb',function(err){
   if(err){
-    console.log("db connection fai .. .. . ");
+    console.log("db connection fail .. .. . ");
     console.log(err);
   }
 })
 
-//All urls 
+//All urls  
 
 app.get("/",function(req,res){
     res.write("welcome...")
@@ -63,8 +63,9 @@ app.delete("/catagory/:catagoryId",catagoryController.deleteCatagory)
 
 // product 
 
-app.post("/addproduct",productValidation, productController.addProduct)
+app.post("/addproduct", productController.addProduct)
 app.get("/getproduct",productController.getAllProduct)
+app.get("/getoneproduct/:productId",productController.getOneProduct)
 app.put("/updateproduct",productController.updateProduct)
 app.delete("/product/:productId",productController.deleteProduct)
 

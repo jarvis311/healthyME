@@ -22,6 +22,9 @@ export const Navbar = () => {
         <li className="nav-item">
           <Link className="nav-link" to="/signin">Login</Link>
         </li>
+        <li className="nav-item">
+        <Link className="nav-link" to="/dashbord">Dashbord</Link>
+        </li>
        
       </ul>
       <form className="d-flex">

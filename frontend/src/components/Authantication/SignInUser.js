@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import image1 from '../image/image1.svg'
+import image1 from './image/image1.svg';
 
 
 
@@ -24,7 +24,10 @@ export const SignInUser = () => {
         console.log(json);
 
         if (json.success) {
+            alert("You are Loggedin successfull")
             navigate('/')
+        }else{
+            alert("Invalid Creadinatial");
         }
 
     }
@@ -35,22 +38,9 @@ export const SignInUser = () => {
 
 
     return (
-        <div>
+      
 
-            {/* <form onSubmit={handleSubmit}>
-
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="user-form-control" onChange={onchange} id="email" name='email' aria-describedby="emailHelp" />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="user-form-control" onChange={onchange} id="password" name='password' />
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form> */}
-        {/* ---------------------------------------------------------------------------------------------------------------------- */}
-            <div className="container-fluid UserLogin" >
+           <div className="container-fluid UserLogin" >
 
 
                 <section className="side">
@@ -84,7 +74,7 @@ export const SignInUser = () => {
 
 
 
-        </div>
+      
 
     )
 }
