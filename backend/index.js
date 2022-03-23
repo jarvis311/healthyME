@@ -1,6 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors')
+const multer = require('multer')
+
+
+let storage = multer.diskStorage({
+  destination: function(req, file, next){
+    next(null, './uploads')
+  },
+  filename: function(req,file,next) {
+    next(null, file.fieldname+"_"+Date.now()+"_"+file.originalname);
+  }
+})
+
+let upload = multer({
+  storage : storage,
+}).single('image');
+
 
 
 
@@ -22,7 +38,7 @@ app.use(cors())
 //database 
 mongoose.connect('mongodb://localhost:27017/healthymedb',function(err){
   if(err){
-    console.log("db connection fail .. .. . ");
+    console.log("db connection fail...");
     console.log(err);
   }
 })

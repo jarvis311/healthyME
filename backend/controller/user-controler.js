@@ -1,9 +1,6 @@
 const UserModel = require("../models/user-model")
 const bcrypt = require("bcrypt")
 
-
-
-
 //add [ POST ]
 
 module.exports.addUser = function (req, res) {
@@ -11,7 +8,7 @@ module.exports.addUser = function (req, res) {
     let email = req.body.email
     let password = req.body.password
     let role = req.body.role
-    //encrypt password
+    //encrypt password 
     let encPassword = bcrypt.hashSync(password,10)
     let register = false;
 
@@ -94,7 +91,6 @@ module.exports.login = function(req,res){
                     isCorrect = true
             }
         }
-    
         if (isCorrect == false) {
             res.json({success, msg: "Invalid Credentials...", data: req.body, status: -1 })//-1  [ 302 404 500 ]
         } else {

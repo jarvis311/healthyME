@@ -67,7 +67,7 @@ export const SignUpUser = () => {
                                 <i className="fas fa-lock"></i>
                             </div>
                              <div className="user-form-control">
-                                <input class="form-control" type="text" onChange={onchange} id="role" name='role' placeholder="You are Register as a user" aria-label="Disabled input example" disabled />
+                                <input className="form-control" type="text" onChange={onchange} id="role" name='role' placeholder="You are Register as a user" aria-label="Disabled input example" disabled />
                                 {/* <i className="fas fa-lock"></i> */}
                                 <i className="fa-solid fa-user"></i>
 

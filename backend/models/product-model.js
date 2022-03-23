@@ -47,10 +47,10 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
-        type: String,
-        required: true
-    },
+    // image: {
+    //     type: String,
+    //     required: true
+    // },
     role: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"role"

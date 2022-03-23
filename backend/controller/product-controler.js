@@ -16,7 +16,7 @@ module.exports.addProduct = function (req, res) {
     let vitamin_c = req.body.vitamin_c
     let vitamin_a = req.body.vitamin_a
     let vitamins_and_minerals = req.body.vitamins_and_minerals
-    let image = req.body.image
+    // let image = req.body.image
     let role = req.body.role
     let catagory = req.body.catagory
 
@@ -34,7 +34,7 @@ module.exports.addProduct = function (req, res) {
         vitamin_c:vitamin_c,
         vitamin_a:vitamin_a,
         vitamins_and_minerals:vitamins_and_minerals,
-        image: image,
+        // image: image,
         role: role,
         catagory: catagory
     })

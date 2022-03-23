@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import image1 from './image/image1.svg';
 
@@ -7,11 +7,13 @@ import image1 from './image/image1.svg';
 
 export const SignInUser = () => {
 
-    const [credential, setCredential] = useState({ email: "", password: "" })
+    // const [credential, setCredential] = useState({ email: "", password: "" })
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { email, password } = credential;
+        
         const response = await fetch('http://localhost:5000/login', {
             method: "POST",
             headers: {
@@ -19,6 +21,10 @@ export const SignInUser = () => {
             },
             body: JSON.stringify({ email, password })
         });
+        
+        localStorage.setItem('abcd',email)
+        localStorage.setItem('token',"tokennnnnnnnnnnnnn")
+        
 
         const json = await response.json();
         console.log(json);
@@ -31,9 +37,15 @@ export const SignInUser = () => {
         }
 
     }
+    
+ 
 
-    const onchange = (e) => {
-        setCredential({ ...credential, [e.target.name]: e.target.value })
+    const onchangeEmail = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const onchangePassword = (e) => {
+        setPassword(e.target.value)
     }
 
 
@@ -55,12 +67,12 @@ export const SignInUser = () => {
 
                         <form className="login-form" onSubmit={handleSubmit}>
                             <div className="user-form-control">
-                                <input type="email" placeholder="Email"  onChange={onchange} id="email" name='email' />
+                                <input type="email" placeholder="Email"  onChange={(e)=>{onchangeEmail(e)}} id="email" name='email' />
                                 <i className="fa-solid fa-envelope"></i>
                             </div>
 
                             <div className="user-form-control">
-                                <input type="password" placeholder="Password" onChange={onchange} id="password" name='password' />
+                                <input type="password" placeholder="Password" onChange={(e)=>{onchangePassword(e)}} id="password" name='password' />
                                 <i className="fas fa-lock"></i>
                             </div>
 

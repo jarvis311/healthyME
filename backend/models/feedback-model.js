@@ -14,16 +14,7 @@ const FeedbackSchema = new mongoose.Schema({
         product: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "product"
-        },
-
-        // role : {
-        //         type:mongoose.Schema.Types.ObjectId,
-        //         ref:"role"
-        // },
-        // catagory : {
-        //         type:mongoose.Schema.Types.ObjectId,
-        //         ref:"catagory"
-        // }
+        }
 })
 
 
