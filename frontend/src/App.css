@@ -154,6 +154,7 @@ button.submit:hover {
 }
 .card{
     margin: 10px;
+    font-family: 'Roboto Slab', serif;
     background: rgba(223, 223, 223, 0.651);
     
   }
@@ -177,9 +178,12 @@ button.submit:hover {
 }
 
 .searchContainer{
-    /* border: 2px solid red; */
+
     padding: 10px;
-    background-color: #6b6a6afb;
+    background-image: url('./images/download.jfif');
+    background-size: cover;
+    margin-top: -14px;
+    width: 99.3%;
 }
 
 
@@ -187,23 +191,23 @@ button.submit:hover {
 @import url(https://fonts.googleapis.com/css?family=Cabin:400);
 
 .webdesigntuts-workshop input {
-	background: #222;	
-	background: linear-gradient(#333, #222);	
-	border: 2px solid rgb(243, 236, 236);
-	border-radius: 5px ;
+	background: rgb(253, 253, 253);	
+    
+	border: 3px solid rgb(0, 0, 0);
+	border-radius: 15px ;
 	box-shadow: 0 2px 0 #000;
 	color: #888;
 	display: block;
 	float: left;
-    box-shadow: 10px 10px 5px rgb(70, 71, 71);
+    /* box-shadow: 10px 10px 5px rgb(70, 71, 71); */
 	font-family: 'Cabin', helvetica, arial, sans-serif;
 	font-size: 13px;
 	font-weight: 400;
-	height: 40px;
+	height: 50px;
 	margin: 0;
 	padding: 0 10px;
 	text-shadow: 0 -1px 0 #000;
-	width: 50vw;
+	width: 80vw;
 }
 
 .ie .webdesigntuts-workshop input {
@@ -211,7 +215,8 @@ button.submit:hover {
 }
 
 .webdesigntuts-workshop input::-webkit-input-placeholder {
-   color: rgb(247, 247, 247);
+    padding-left: 10px;
+   color: rgb(0, 0, 0);
 }
 
 .webdesigntuts-workshop input:-moz-placeholder {
@@ -238,7 +243,7 @@ button.submit:hover {
 
 .webdesigntuts-workshop button {
 	background: #222;
-	background: linear-gradient(#333, #222);
+	background: linear-gradient(rgb(207, 204, 204), rgb(248, 242, 242));
 	box-sizing: border-box;
 	border: 1px solid #444;
 	border-left-color: #000;
@@ -280,8 +285,8 @@ button.submit:hover {
 		box-shadow: 0 0 5px rgba(0,255,0,.2), inset 0 0 5px rgba(0,255,0,.1), 0 2px 0 #000;
     }	
     100% {
-		border-color: #6f6;
-		box-shadow: 0 0 20px rgba(0,255,0,.6), inset 0 0 10px rgba(0,255,0,.4), 0 2px 0 #000;
+		border-color: rgb(102, 143, 255);
+		box-shadow: 0 0 20px rgba(150, 71, 160, 0.6), inset 0 0 10px rgba(255, 0, 64, 0.4), 0 2px 0 #000;
     }
 }
 
@@ -420,3 +425,69 @@ button.submit:hover {
     font-size: 2rem;
 }
 
+.grams{
+    float: right;
+    font-weight: bold;
+}
+/* show user name  */
+.Showusername {
+    text-align: right;
+    width: 100%;
+    background-image: url('./images/download.jfif');
+    background-size: cover;
+ 
+   
+}
+.Showusername span{
+    font-size: 1.2rem;
+    margin-right: 10px;  
+    color:white;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.Showusername button{
+    margin-right: 10px;  
+    margin-top: 2px;
+    font-size: 1.1rem;
+    color: rgb(255, 255, 255);
+    border-radius: 12px;
+    background-color: #000000;
+}
+.Showusername button:hover{
+    background-color: rgb(71, 12, 235);
+    border: 1px solid white; 
+}
+.Showusername button i{
+    margin: 5px;
+    font-size: 1.1rem;
+    color: white;
+}
+/* //login require */
+.loginRequire{
+    width: 100%;
+    height: 93vh;
+}
+
+/* admin panal */
+/* .adminpanal{
+    background-color:#1b203d;
+    color:red;
+} */
+
+.parent{
+    display: flex;
+}
+.mainPanalContaine{
+    height: 100%;
+    width: 79.7%;
+    
+    margin-top: 20px;
+    margin-left: 22rem;
+}
+/* Role css  */
+
+.RoleClass span{
+    color: rgb(172, 170, 170);
+    
+}

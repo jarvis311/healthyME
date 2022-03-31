@@ -5,15 +5,15 @@ const FeedbackModel = require("../models/feedback-model")
 module.exports.addFeedback = function (req, res) {
 
     let UserFeedback = req.body.feedback
-    let FeedbackProduct = req.body.product
-    let FeedbackUser = req.body.user
+    let FeedbackProduct = req.body.productId
+    // let FeedbackUser = req.body.user
     // let FeedbackUser = req.body.user
     // let FeedbackUser = req.body.user
     
     let feedback = new FeedbackModel({
         feedback: UserFeedback,    
-        user: FeedbackUser,    
-        product: FeedbackProduct    
+        // user: FeedbackUser,    
+        productId: FeedbackProduct    
     })
 
     feedback.save(function (err, data) {

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './dashStyle.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const AdminDashbord = () => {
 
   const [product, setProduct] = useState({ product_name: "", description: "", fat: "", calories: "", carbohydrates: "", fiber: "", sugars: "", protein: "", vitamin_c: "", vitamin_a: "", vitamins_and_minerals: "", image: "", role: "", catagory: "" })
@@ -51,28 +53,31 @@ export const AdminDashbord = () => {
 
 
 
-  const [imageUpload, setImageUpload] = useState("")
-  // const navigate = useNavigate();
+  // const [imageUpload, setImageUpload] = useState("")
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { product_name, description, fat, calories, carbohydrates, fiber, sugars, protein, vitamin_c, vitamin_a, vitamins_and_minerals, image } = product;
+    const { product_name, description, fat, calories, carbohydrates, fiber, sugars, protein, vitamin_c, vitamin_a, vitamins_and_minerals } = product;
     const response = await fetch('http://localhost:5000/addproduct', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ product_name, description, fat, calories, carbohydrates, fiber, sugars, protein, vitamin_c, vitamin_a, vitamins_and_minerals, image, role, catagory })
+      body: JSON.stringify({ product_name, description, fat, calories, carbohydrates, fiber, sugars, protein, vitamin_c, vitamin_a, vitamins_and_minerals, role, catagory })
     },  
 
     );
 
     const json = await response.json();
     if (json.addSuccess) {
-      alert("Product Are Added")
-      navigate('/')
-
+      toast("You Product Are Add Successfully")
+      setTimeout(() => {
+        navigate('/')   
+      }, 2000);
+      
     } else {
-      alert("invalid Input")
+      toast("Invalid Input")
+      console.log(json);
     }
 
     
@@ -81,11 +86,11 @@ export const AdminDashbord = () => {
   const onchange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value })
   }
-  const iamgeUpload = (event) => {
-    console.log();
-    setImageUpload({ ...product, image: event.target.files[0] })
+  // const iamgeUploade = (event) => {
+  //   console.log();
+  //   setImageUpload({ ...product, image: event.target.files[0] })
 
-  }
+  // }
 
   return (
 
@@ -145,14 +150,6 @@ export const AdminDashbord = () => {
               <input type="text" onChange={onchange} id="vitamins_and_minerals" name='vitamins_and_minerals' required />
             </div>
 
-            {/* <div className="input-box">
-              <span className="details">Role</span>
-              <input type="text" onChange={onchange} id="role" name='role' required />
-            </div> */}
-            {/* <div className="input-box">
-              <span className="details">Catagory</span>
-              <input type="text" onChange={onchange} id="catagory" name='catagory'  required />
-            </div> */}
             <select className='selectCat' onChange={(e) => { handeleRole(e) }} value={role} >
               {roleOptions.map((roleOptions) => (
                   <option value={roleOptions.value}>{roleOptions.label}</option>
@@ -169,7 +166,7 @@ export const AdminDashbord = () => {
             
             <div className="input-box">
               <span className="details">Image</span>
-              <input className='file' accept="image/*" onChange={iamgeUpload} id="image" name='image' type="file" required />
+              <input className='file' accept="image/*"  id="image" name='image' type="file" required />
             </div>
 
           </div>
@@ -177,6 +174,7 @@ export const AdminDashbord = () => {
           <div className="button">
             <input type="submit" value="Add Product" />
           </div>
+          <ToastContainer/>
         </form>
       </div>
     </div>

@@ -4,6 +4,7 @@ const cors = require('cors')
 const multer = require('multer')
 
 
+
 let storage = multer.diskStorage({
   destination: function(req, file, next){
     next(null, './uploads')
@@ -12,7 +13,6 @@ let storage = multer.diskStorage({
     next(null, file.fieldname+"_"+Date.now()+"_"+file.originalname);
   }
 })
-
 let upload = multer({
   storage : storage,
 }).single('image');
@@ -33,6 +33,7 @@ const app = express();
 //middle ware 
 app.use(express.json()) //mobile -> accept json data from request and set data into body 
 app.use(express.urlencoded({extended:true})) //web --> accept url encoded data from request and set data into body  
+app.use('/uploads',express.static('uploads'))
 app.use(cors())
 
 //database 
@@ -79,10 +80,10 @@ app.delete("/catagory/:catagoryId",catagoryController.deleteCatagory)
 
 // product 
 
-app.post("/addproduct", productController.addProduct)
+app.post("/addproduct",upload, productController.addProduct)
 app.get("/getproduct",productController.getAllProduct)
 app.get("/getoneproduct/:productId",productController.getOneProduct)
-app.put("/updateproduct",productController.updateProduct)
+app.put("/updateproduct/:productId",productController.updateProduct)
 app.delete("/product/:productId",productController.deleteProduct)
 
 // feedback

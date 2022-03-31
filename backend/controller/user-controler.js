@@ -84,7 +84,7 @@ module.exports.login = function(req,res){
 
     let isCorrect = false; 
     let success = false;
-    UserModel.findOne({email:param_email},function(err,data){
+    UserModel.findOne({email:param_email}).populate('role').exec(function(err,data){
         if(data){
             let ans =  bcrypt.compareSync(param_password,data.password)
             if(ans == true){
@@ -92,10 +92,10 @@ module.exports.login = function(req,res){
             }
         }
         if (isCorrect == false) {
-            res.json({success, msg: "Invalid Credentials...", data: req.body, status: -1 })//-1  [ 302 404 500 ]
+            res.json({success, msg: "Invalid Email or password...", data: req.body, status: -1 })//-1  [ 302 404 500 ]
         } else {
             success = true;
-            res.json({success, msg: "Login Success....", data: data, status: 200 })//http status code 
+            res.json({success, msg: "You Are Succesfully Login..", data: data, status: 200 })//http status code 
         }
     })
 

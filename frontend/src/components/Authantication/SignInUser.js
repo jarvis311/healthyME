@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useNavigate, Link} from 'react-router-dom';
 import image1 from './image/image1.svg';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -21,25 +22,25 @@ export const SignInUser = () => {
             },
             body: JSON.stringify({ email, password })
         });
-        
-        localStorage.setItem('abcd',email)
-        localStorage.setItem('token',"tokennnnnnnnnnnnnn")
-        
 
         const json = await response.json();
         console.log(json);
 
         if (json.success) {
-            alert("You are Loggedin successfull")
-            navigate('/')
+            localStorage.setItem('abcd',email)
+            localStorage.setItem('token',"token")
+            localStorage.setItem('Role',json.data.role.roleName)
+            toast(json.msg)
+            setTimeout(() => {
+                navigate('/')
+                window.location.reload();
+            }, 2000);
         }else{
-            alert("Invalid Creadinatial");
+            toast(json.msg)
         }
 
     }
     
- 
-
     const onchangeEmail = (e) => {
         setEmail(e.target.value)
     }
@@ -75,9 +76,10 @@ export const SignInUser = () => {
                                 <input type="password" placeholder="Password" onChange={(e)=>{onchangePassword(e)}} id="password" name='password' />
                                 <i className="fas fa-lock"></i>
                             </div>
-
+                            <div><strong><Link to='/loginAdmin'> Login As Admin</Link> </strong></div>
 
                             <button type='submit' className="submit">Login</button>
+                            <ToastContainer />
                         </form>
                     </div>
                 </section>
