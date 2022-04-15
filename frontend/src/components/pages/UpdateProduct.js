@@ -16,6 +16,9 @@ export const UpdateProduct = (props) => {
   const [vitamin_c, setVitamin_c] = useState('')
   const [vitamin_a, setVitamin_a] = useState('')
   const [vitamins_and_minerals, setVitamins_and_minerals] = useState('')
+  const [advantage, setAdvantage] = useState('')
+  const [disadvantage, setDisadvantage] = useState('')
+
   const navigate = useNavigate();
   const param = useParams();
   useEffect(() => {
@@ -37,18 +40,16 @@ export const UpdateProduct = (props) => {
     setVitamin_c(result.data.vitamin_c)
     setVitamin_a(result.data.vitamin_a)
     setVitamins_and_minerals(result.data.vitamins_and_minerals)
+    setAdvantage(result.data.advantage)
+    setDisadvantage(result.data.disadvantage)
 
   }
-  // const [alert, setAlert] = useState('')
 
-  // const showAlert = (massage) => {
-  //   setAlert({ msg: massage })
-  // }
   const handleSubmit = async (e) => {
     e.preventDefault();
     let result = await fetch(`http://localhost:5000/updateproduct/${param._id}`, {
       method: 'Put',
-      body: JSON.stringify({ product_name, description, fat, calories, carbohydrates, fiber, sugars, protein, vitamin_c, vitamin_a, vitamins_and_minerals }),
+      body: JSON.stringify({ product_name, description, fat, calories, carbohydrates, fiber, sugars, protein, vitamin_c, vitamin_a, vitamins_and_minerals,advantage, disadvantage }),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -139,6 +140,14 @@ export const UpdateProduct = (props) => {
               <div className="input-box">
                 <span className="details">Vitamins and Minerals</span>
                 <input type="text" onChange={(e) => { setVitamins_and_minerals(e.target.value) }} value={vitamins_and_minerals} id="vitamins_and_minerals" name='vitamins_and_minerals' required />
+              </div>
+              <div className="input-box">
+                <span className="details">Advantage</span>
+                <input type="text" onChange={(e) => { setAdvantage(e.target.value) }} value={advantage} id="advantage" name='advantage' required />
+              </div>
+              <div className="input-box">
+                <span className="details">Disadvantage</span>
+                <input type="text" onChange={(e) => { setDisadvantage(e.target.value) }} value={disadvantage} id="disadvantage" name='disadvantage' required />
               </div>
 
               {/* <div className="input-box">

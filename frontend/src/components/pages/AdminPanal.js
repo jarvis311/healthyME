@@ -23,22 +23,22 @@ export const AdminPanal = () => {
             <AdminpanalContainer>
                 <div id="mySidenav" className="sidenav">
                      <p className="logo"><span>HEALTY</span>-ME</p>
-                     <a href="#" className="icon-a"><i className="fa fa-dashboard icons"></i>Dashboard </a>
+                     {/* <a href="#" className="icon-a"><i className="fa fa-dashboard icons"></i>Dashboard </a> */}
                      <Link to="/getAllUserAdminpanal" className="icon-a"><i className="fa fa-users icons"></i> Get All User </Link>
                      <Link  className="icon-a" to="/form"><i className="fa fa-plus icons"></i>Add Product</Link>
                      <Link  className="icon-a" to="/about"><i className="fa fa-users icons"></i>About</Link>
                      <Link  className="icon-a" to="/createAdmin"><i className="fa fa-users icons"></i>Admin Create</Link>
-                     <a href="#" className="icon-a"><i className="fa fa-list icons"></i> Projects</a>
+                     <Link  className="icon-a" to="/catagory"><i className="fa fa-users icons"></i>Create Product Catagory</Link>
+                     <Link  className="icon-a" to="/approval"><i className="fa fa-users icons"></i>Produc Request</Link>
+                     {/* <a href="#" className="icon-a"><i className="fa fa-list icons"></i> Projects</a>
                      <a href="#" className="icon-a"><i className="fa fa-shopping-bag icons"></i>Orders</a>
                      <a href="#" className="icon-a"><i className="fa fa-tasks icons"></i>Inventory</a>
                      <a href="#" className="icon-a"><i className="fa fa-user icons"></i>Accounts</a>
-                     <a href="#" className="icon-a"><i className="fa fa-list-alt icons"></i>Tasks</a>
+                     <a href="#" className="icon-a"><i className="fa fa-list-alt icons"></i>Tasks</a> */}
                 </div>
             </AdminpanalContainer>
 
-            
-            
-            
+                        
             </> : <h1>Please Login First As Admin</h1>
 
             }
@@ -47,14 +47,13 @@ export const AdminPanal = () => {
     )
 }
 
-
 const AdminpanalContainer = styled.div
     `
   body{
 	margin:0px;
 	padding: 0px;
 	overflow: hidden;
-	font-family: system-ui;
+	font-family: ;
     
 }
 .clearfix{

@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import FadeLoader from "react-spinners/FadeLoader";
 
 export const DeleteUSer = () => {
 const navigate = useNavigate()
@@ -20,10 +21,12 @@ const navigate = useNavigate()
         })
     },)
 
-
+  
+    let color = "red"
 
   return (
     <div>
+      <div className='loader'><FadeLoader color={color}/></div>
         <ToastContainer/>
     </div>
   )

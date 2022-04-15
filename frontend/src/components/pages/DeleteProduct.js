@@ -1,8 +1,10 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 export const DeleteProduct = () => {
   const navigate = useNavigate();
     var _id = useParams()._id;
@@ -19,8 +21,11 @@ export const DeleteProduct = () => {
           }, 2000);
         })
     },)
+
+    
   return (
     <div>
+     
         <ToastContainer/>
     </div>
   )

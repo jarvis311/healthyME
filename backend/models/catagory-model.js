@@ -7,9 +7,6 @@ const CatagorySchema = new mongoose.Schema({
             type:String,
             
         },
-        date:{  
-            default: Date
-        },
         role: {
                 type:mongoose.Schema.Types.ObjectId,
                 ref:"role"

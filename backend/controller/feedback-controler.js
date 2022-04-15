@@ -2,19 +2,22 @@ const FeedbackModel = require("../models/feedback-model")
 
 
 //add feedback [ POST ]
-module.exports.addFeedback = function (req, res) {
+module.exports.addFeedback = async function (req, res) {
 
     let UserFeedback = req.body.feedback
-    let FeedbackProduct = req.body.productId
-    // let FeedbackUser = req.body.user
-    // let FeedbackUser = req.body.user
+    let FeedbackProduct = req.body.product
     // let FeedbackUser = req.body.user
     
-    let feedback = new FeedbackModel({
-        feedback: UserFeedback,    
-        // user: FeedbackUser,    
-        productId: FeedbackProduct    
-    })
+    let feedback = await FeedbackModel.findOne({product: FeedbackProduct});
+    if(feedback){ 
+        feedback.feedback = [ ...feedback.feedback, UserFeedback ];
+    } else {
+        feedback = new FeedbackModel({
+            feedback: UserFeedback,    
+            product: FeedbackProduct    
+        })
+    }
+
 
     feedback.save(function (err, data) {
         if (err) {
@@ -23,16 +26,15 @@ module.exports.addFeedback = function (req, res) {
             res.json({ msg: "Add feedback", data: data, status: 200 })//http status code 
         }
     })
-
-
 }
 
 //(GET) list of  feedback
 module.exports.getAllFeedback = function (req, res) {
-
-    FeedbackModel.find().populate("user").populate("product").exec(function (err, feedback) {
+    
+    FeedbackModel.findOne({product: req.params.id}).populate("product").exec(function (err, feedback) {
         if (err) {
             res.json({ msg: "Something went wrong!!", data: err, status: -1 })//-1  [ 302 404 500 ]
+            console.log(err);
         } else {
             res.json({ msg: "All Feedback are show...", data: feedback, status: 200 })//http status code 
         }

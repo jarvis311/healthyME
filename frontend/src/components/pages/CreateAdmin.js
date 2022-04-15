@@ -23,38 +23,54 @@ export const CreateAdmin = () => {
         if (json.register) {
             toast('Admin creating suceess')
         } else {
-            alert("invalid Credential")
-        }
-
+            toast('invalid Credential')
+        }   
     }
 
     const onchange = (e) => {
         setCredential({ ...credential, [e.target.name]: e.target.value })
     }
 
+    const [email, setemail] = useState('')
+    
+    useEffect(() => {
+      
+        setemail(localStorage.getItem('abcd') && localStorage.getItem('Role') === 'admin')  
+        
+    },[] )
+  
+
     return (
         <div>
-             <AdminPanal />
+            {
+                email ? <>
+                
+                <AdminPanal />
             <form action="" className='mainPanalContaine' onSubmit={handleSubmit}>
 
-            <div class="mb-3 col-md-6">
-                <label for="name" class="form-label">Admin Name</label>
+            <div className="mb-3 col-md-6">
+                <label for="name" className="form-label">Admin Name</label>
                 
-                  <input type="text"  class="form-control" onChange={onchange} id="firstName" name='firstName' />
+                  <input type="text"  className="form-control" onChange={onchange} id="firstName" name='firstName' />
             </div>
-            <div class="mb-3 col-md-6">
-                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email"onChange={onchange}  class="form-control" id="exampleFormControlInput1"name='email' />
+            <div className="mb-3 col-md-6">
+                <label for="exampleFormControlInput1" className="form-label">Email address</label>
+                <input type="email"onChange={onchange}  className="form-control" id="exampleFormControlInput1"name='email' />
             </div>
-            <div class="mb-3 col-md-6">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" onChange={onchange} id="password" name='password' />
+            <div className="mb-3 col-md-6">
+                <label for="password" className="form-label">Password</label>
+                <input type="password" className="form-control" onChange={onchange} id="password" name='password' />
 
             </div>
             <button type='submit' className="submit1 btn btn-primary">Register</button>
         <ToastContainer/>
             </form>
 
+                
+                
+                </>  : <h1>Please Login as Admin</h1>
+            }
+             
         </div>
     )
 }

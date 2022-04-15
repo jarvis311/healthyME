@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors')
 const multer = require('multer')
+const router = express.Router()
+const requireLogin = require('./middleware/requireLogin')
 
 
 
@@ -10,14 +12,12 @@ let storage = multer.diskStorage({
     next(null, './uploads')
   },
   filename: function(req,file,next) {
-    next(null, file.fieldname+"_"+Date.now()+"_"+file.originalname);
+    next(null, file.originalname);
   }
 })
 let upload = multer({
   storage : storage,
-}).single('image');
-
-
+})
 
 
 const sessionController = require("./controller/session-controller");
@@ -26,7 +26,7 @@ const userController = require("./controller/user-controler");
 const productController = require("./controller/product-controler")
 const catagoryController = require("./controller/catagory-controler")
 const feedbackController = require("./controller/feedback-controler");
-const { addUserValidation, loginUserValidation, productValidation, roleValidation} = require("./validation/userValidation");
+const { addUserValidation, loginUserValidation, roleValidation} = require("./validation/userValidation");
 
 
 const app = express();
@@ -35,7 +35,7 @@ app.use(express.json()) //mobile -> accept json data from request and set data i
 app.use(express.urlencoded({extended:true})) //web --> accept url encoded data from request and set data into body  
 app.use('/uploads',express.static('uploads'))
 app.use(cors())
-
+app.use(router)
 //database 
 mongoose.connect('mongodb://localhost:27017/healthymedb',function(err){
   if(err){
@@ -46,12 +46,21 @@ mongoose.connect('mongodb://localhost:27017/healthymedb',function(err){
 
 //All urls  
 
+
+
+
+
+
 app.get("/",function(req,res){
     res.write("welcome...")
     res.end()
 })
 
-          
+router.get('/protected',requireLogin, (req, res)=>{
+  res.send("Hii from the protected")
+}) 
+
+ 
 app.get("/login",sessionController.login)
 app.get("/signup",sessionController.signup) 
 app.post("/saveuser",sessionController.saveuser)
@@ -80,16 +89,23 @@ app.delete("/catagory/:catagoryId",catagoryController.deleteCatagory)
 
 // product 
 
-app.post("/addproduct",upload, productController.addProduct)
-app.get("/getproduct",productController.getAllProduct)
+app.post("/addproduct",upload.single('image'), productController.addProduct)
+app.post("/addproductByAdmin",upload.single('image'), productController.addProductByAdmin)
+app.get("/getproduct",upload.single('image'),productController.getAllProduct)
+app.get("/getApprovalProduct",productController.getAllProductForApproval)
 app.get("/getoneproduct/:productId",productController.getOneProduct)
 app.put("/updateproduct/:productId",productController.updateProduct)
+app.put("/approve/:productId",productController.updateProductApproval)
 app.delete("/product/:productId",productController.deleteProduct)
+app.put("/like",productController.likeProduct)
+app.post("/addfeedbackProduct",productController.addFeedbackProduct)
+
+
 
 // feedback
 
 app.post("/addfeedback",feedbackController.addFeedback)
-app.get("/getfeedback",feedbackController.getAllFeedback)
+app.get("/getfeedback/:id",feedbackController.getAllFeedback)
 app.put("/updatefeedback",feedbackController.updateFeedback)
 app.delete("/feedback/:feedbackId",feedbackController.deleteFeedback)
 

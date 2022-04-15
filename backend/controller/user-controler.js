@@ -1,7 +1,17 @@
 const UserModel = require("../models/user-model")
 const bcrypt = require("bcrypt")
+const jwt = require('jsonwebtoken')
+const express = require("express");
 
+
+
+
+
+
+const requireLogin = require('../middleware/requireLogin')
 //add [ POST ]
+
+JWT_SECT = "iamjwtkey07"
 
 module.exports.addUser = function (req, res) {
     let firstName = req.body.firstName
@@ -95,7 +105,9 @@ module.exports.login = function(req,res){
             res.json({success, msg: "Invalid Email or password...", data: req.body, status: -1 })//-1  [ 302 404 500 ]
         } else {
             success = true;
-            res.json({success, msg: "You Are Succesfully Login..", data: data, status: 200 })//http status code 
+            const token  = jwt.sign({_id:data._id}, JWT_SECT)
+
+            res.json({success,token:token, msg: "You Are Succesfully Login..", data: data, status: 200 })//http status code 
         }
     })
 

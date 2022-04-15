@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-
+const {ObjectId} = mongoose.Schema.Types
 
 const ProductSchema = new mongoose.Schema({
 
@@ -47,6 +47,33 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    advantage: {
+        type: String,
+        
+    },
+    disadvantage: {
+        type: String,
+        
+    },
+        rating:[ {
+        type: String,
+        required: true,
+        ref:"product"
+        }],
+    
+    like:[{
+        type: String,
+        ref:"user"
+    }],
+    isApproved: {
+        type:Boolean,
+        default:false
+    },
+    feedback: [{
+        type: String,
+        required: true,      
+        // default:"no feedback"
+    }],
     role: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"role"
@@ -54,6 +81,16 @@ const ProductSchema = new mongoose.Schema({
     catagory:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"catagory"
+    },
+    image:{
+        type:String,
+        required:true
+    },
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"user",
+        require:true
+
     }
 })
 

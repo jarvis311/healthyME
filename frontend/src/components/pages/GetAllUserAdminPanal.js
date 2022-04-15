@@ -19,13 +19,11 @@ export const GetAllUserAdminPanal = () => {
         console.log(json.data);
     }, []);
 
-
-
     return (
         <div>
             <AdminPanal/>
             <div className='mainPanalContaine'>
-            <table class="table table-success table-striped">
+            <table className="table table-success table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
@@ -35,7 +33,7 @@ export const GetAllUserAdminPanal = () => {
                        
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> 
  
                      {
                          product.map((item)=>(

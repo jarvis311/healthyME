@@ -488,6 +488,37 @@ button.submit:hover {
 /* Role css  */
 
 .RoleClass span{
-    color: rgb(172, 170, 170);
+    color: rgb(19, 229, 61);
     
+}
+
+.ratingCount{
+    width: 50px;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 50px;
+    color: rgb(255, 255, 255);
+    background-color: #95df7e;
+}
+
+/* addcatagoryadmin */
+.addcatagoryadmin{
+ margin-left: 30rem;
+ margin-top: 10rem;
+}
+.addcatagoryadmin input{
+    width: 30vw;
+    border: 1px solid black;
+}
+
+/* user image */
+
+.userImage{
+    width: 30px;
+    height: 30px;
+    /* border-radius: 10px; */
+
+}
+.loader{
+    padding: 300px 0;
+    text-align: center;
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import image1 from '../Authantication/image/nutrition.jfif';
 import { Logout } from './Logout';
+import FadeLoader from "react-spinners/FadeLoader";
 
 
 export const FetchProduct = () => {
@@ -30,11 +30,25 @@ export const FetchProduct = () => {
             setemail(null)
         }
     }, [])
-
+    let [loading, setLoading] = useState(false);
+    // useEffect(() => {
+    //     setLoading(true)
+    //     setTimeout(() => {
+    //         setLoading(false)
+            
+    //     }, 3000);
+    //   return () => {
     
+    //   }
+    // }, [])
+
+    let color = "red"
     return (
         <div>
-            <Logout />
+            {
+                loading ? <div className='loader'><FadeLoader color={color}/></div> : <> 
+
+<Logout />
             <form>
                 <div className="row my-3 gy-3">
                     <div className='searchContainer'>
@@ -53,9 +67,6 @@ export const FetchProduct = () => {
                             } 
                             else if (
                                 val.product_name.toLowerCase().includes(searchTerm.toLowerCase())
-                                //   val.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                //   val.team.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                //   val.email.toLowerCase().includes(searchTerm.toLowerCase()) 
 
                             ) { 
                                 return val 
@@ -67,11 +78,11 @@ export const FetchProduct = () => {
                             <div className="col-sm-3 col-lg-2 col-md-4">
                                 <div className="card">
                                     {/* <img src={item.image} className="card-img-top" alt={item.image} /> */}
-                                    <img src={image1} alt="" />
+                                    <img src={`http://localhost:5000/uploads/${item.image}`} alt="" />
                                     <div className="card-body">
 
                                         <Link to={`/infoproduct/${item._id}`}><h4 className="card-text">{item.product_name}</h4></Link>
-                                        <p className="card-text">{item.description}</p>
+                                        <p className="card-text">{(item.description).substring(0,30) }..</p>
                                         {
                                             email ? <><Link to={`updateproduct/${item._id}`}> <button className='btn btn-danger'>Update</button></Link></> : ''
                                         }
@@ -83,12 +94,15 @@ export const FetchProduct = () => {
                             </div>
 
                         ))
-
+ 
                     }
                 </div>
 
             </form>
 
+                </>
+            }
+          
         </div>
     )
 }

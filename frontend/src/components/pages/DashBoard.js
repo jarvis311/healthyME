@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AdminDashbord } from './AdminDashbord'
+import { AddProduct } from './AddProduct'
 // import img from '../Authantication/image/Login_Required.png'
 export const DashBoard = () => {
 
@@ -16,7 +16,7 @@ export const DashBoard = () => {
     <div>
         
   {
-    email ? <>{<AdminDashbord/>}</> : <h1>Please Login First</h1>
+    email ? <>{<AddProduct/>}</> : <h1>Please Login First</h1>
     
     
     // <div>

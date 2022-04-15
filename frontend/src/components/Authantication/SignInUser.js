@@ -24,12 +24,15 @@ export const SignInUser = () => {
         });
 
         const json = await response.json();
-        console.log(json);
+        console.log(json.data);
 
-        if (json.success) {
+        if(json.success) {
             localStorage.setItem('abcd',email)
-            localStorage.setItem('token',"token")
             localStorage.setItem('Role',json.data.role.roleName)
+            localStorage.setItem('token',json.token)
+            localStorage.setItem('userId',json.data._id)
+            localStorage.setItem('user',JSON.stringify(json.data))
+            console.log(json.data);
             toast(json.msg)
             setTimeout(() => {
                 navigate('/')
@@ -38,7 +41,6 @@ export const SignInUser = () => {
         }else{
             toast(json.msg)
         }
-
     }
     
     const onchangeEmail = (e) => {

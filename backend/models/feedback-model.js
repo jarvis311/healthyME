@@ -3,15 +3,16 @@ const mongoose = require("mongoose");
 
 const FeedbackSchema = new mongoose.Schema({
 
-        feedback: {
+        feedback: [{
                 type: String,
-                required: true
-        },
+                required: true,      
+                // default:"no feedback"
+        }],
         // user: {
         //         type: mongoose.Schema.Types.ObjectId,
         //         ref: "user"
         // }
-        productId: {
+        product: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "product"
         }

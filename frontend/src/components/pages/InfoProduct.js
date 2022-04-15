@@ -1,15 +1,20 @@
-
 import { React, useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom';
-import image from '../Authantication/image/images.png'
+import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import axios from 'axios';
+import { FacebookShareButton, WhatsappShareButton, EmailShareButton, TwitterShareButton } from 'react-share'
+import { FacebookIcon, WhatsappIcon, EmailIcon, TwitterIcon } from 'react-share'
+import { ReviweStart } from './Rating/ReviweStart';
 export const InfoProduct = () => {
-    const [product, setProduct] = useState([])
-    // const [productIdLocalStorage, setProductIdLocalStorage] = useState('')
+
+
+    const [productInfo, setProductInfo] = useState([])
+    const [productIdLocalStorage, setProductIdLocalStorage] = useState('')
     let { _id } = useParams();
+   
+    const [likeCount, setLikeCount] = useState([])
+    // Get All Product Information
     useEffect(async () => {
         const response = await fetch(`http://localhost:5000/getoneproduct/${_id}`, {
             method: 'GET',
@@ -18,163 +23,184 @@ export const InfoProduct = () => {
             }
         });
         const json = await response.json(_id)
-        console.log(json);
-        setProduct(json.data)
-        // setProductIdLocalStorage(localStorage.setItem('productId', json.data._id))
+        setProductInfo(json.data)
+        console.log(json.data);
+        setLikeCount(json.data.like.length)
+        setProductIdLocalStorage(localStorage.setItem('productId', json.data._id))
     }, []);
 
+    //Post Product Feedback
 
-    const [credential, setCredential] = useState({ feedback: "", productId: "" })
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const { feedback, productId } = credential;
-        const response2 = await fetch('http://localhost:5000/addfeedback', {
-            method: "POST",
+    
+
+   
+    // Get all Product Feedback 
+    const [getFeedback, setGetFeedback] = useState([])
+    useEffect(async () => {
+        const response = await fetch(`http://localhost:5000/getfeedback/${_id}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ feedback, productId })
+            }
         });
-
-
-        const json1 = await response2.json();
-        console.log(json1);
-
-        if (json1) {
-            toast('feedback creating suceess')
-        } else {
-            alert("invalid Credential")
-        }
-
+        const json = await response.json()
+        setGetFeedback(json.data)
+        localStorage.getItem('productId')
+    }, []);
+    // console.log(getFeedback);
+    
+    const like = (_id) => {
+        fetch('http://localhost:5000/like', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+localStorage.getItem('token')
+            },
+            body: JSON.stringify({
+                productId: _id
+            })
+        }).then(res => res.json())
+            .then(result => {
+                console.log(result);
+            })
     }
-
-    const onchange = (e) => {
-        setCredential({ ...credential, [e.target.name]: e.target.value })
-    }
-
-
 
     return (
         <div>
-            <form action="GET">
-                <div className="row my-3 gy-3">
-                </div>
-                <div className="card-wrapper">
-                    <div className="card">
+            
+                   
+            <div className="row my-3 gy-3">
+            </div>
+            <div className="card-wrapper">
+                <div className="card">
 
-                        <div className="product-imgs">
-                            <div className="img-display">
-                                <div className="img-showcase">
-                                    <img src={image} alt="shoe image" />
+                    <div className="product-imgs">
+                        <div className="img-display">
+                            <div className="img-showcase">
+                                <img src={`http://localhost:5000/uploads/${productInfo.image}`}  alt="shoe image" />
 
-                                </div>
-                                <form onSubmit={handleSubmit}>
-
-                                    <div class="mb -3">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" onChange={onchange} name='feedback' rows="3"></textarea>
-                                    </div>
-                                    <input type="text" onChange={onchange} name='productId' class="form-control" placeholder='Enter productId' />
-                                    <input type='submit' className='btn btn-success' value='Post' />
-                                    
-
-                                </form>
                             </div>
+
+                        </div>
+                        <form action="" >
+
+                            <div className="mb-3">
+                                <label htmlFor="feddback" className="form-label">Feedback</label>
+                                <textarea className="form-control" id="comments" name='comments' rows="3"></textarea>
+                            </div>
+                            <button type='submit' className='btn btn-success'>Post</button>
+                        </form>
+                        <div className="feedbackShow">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, dicta.</p>
+                            <p>{`${getFeedback.feedback}`}</p>
+                           
+                               
+
+                        </div>
+                    </div>
+
+
+                    <div className="product-content">
+                        <h2 className="product-title">{productInfo.product_name}</h2>
+                        
+
+                        <div className="product-rating">
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star-half-alt"></i>
+                            <span>4.7(21)</span>
                         </div>
 
-                        <div className="product-content">
-                            <h2 className="product-title">{product.product_name}</h2>
-                            <h5>Catagory</h5>
+                        <div className="product-detail">
 
-                            <div className="product-rating">
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star"></i>
-                                <i className="fas fa-star-half-alt"></i>
-                                <span>4.7(21)</span>
+                            <table className="table table-bordered border-secondary nutrationTable">
+                                <thead>
+                                    <tr>
+                                        <th className='text-center title' colSpan="10">Nutrition Fact</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Fat</th>
+                                        <td>{productInfo.fat} <span className='grams'>grams</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Calaries</th>
+                                        <td>{productInfo.calories} <span className='grams'>grams</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Carbohydrates</th>
+                                        <td>{productInfo.carbohydrates} <span className='grams'>grams</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fiber</th>
+                                        <td>{productInfo.fiber} <span className='grams'>grams</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sugar</th>
+                                        <td>{productInfo.sugars} <span className='grams'>grams</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Protrin</th>
+                                        <td>{productInfo.protein} <span className='grams'>grams</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Vitamin C</th>
+                                        <td>{productInfo.vitamin_c} <span className='grams'>mg</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Vitamin A</th>
+                                        <td>{productInfo.vitamin_a} <span className='grams'>mg</span> </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Calcium</th>
+                                        <td>{productInfo.vitamins_and_minerals} <span className='grams'>mg</span> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h2>About this {productInfo.product_name} </h2>
+                            <p>{productInfo.description}</p>
+                            <h2>Advantage</h2>
+                            <p>{productInfo.advantage}</p>
+                            <h2>DisAdvantage </h2>
+                            <p>{productInfo.disadvantage}</p>
+                        </div>
+                        {/* <h1>{productInfo.user.firstNamex}</h1> */}
+
+                        <div>
+
+                        </div>
+                        <h4><i className="fas fa-thumbs-up" onClick={() => { like(productInfo.like._id) }}>&nbsp;&nbsp;</i>
+                            <i className="fas fa-thumbs-down"></i></h4>
+
+                        <h5>{likeCount} Likes</h5>
+                        <ReviweStart />
+                        <h4>Share On: </h4>
+                        <div className="social-links">
+                            <div>
+                                <FacebookShareButton url={window.location.href} quote='Check this product'>
+                                    <FacebookIcon size={50} round={true}></FacebookIcon>
+                                </FacebookShareButton>
+                                <WhatsappShareButton url={window.location.href} quote={'Check this product'}>
+                                    <WhatsappIcon size={50} round={true}></WhatsappIcon>
+                                </WhatsappShareButton>
+                                <EmailShareButton url={window.location.href} quote={'Check this product'}>
+                                    <EmailIcon size={50} round={true}></EmailIcon>
+                                </EmailShareButton>
+                                <TwitterShareButton url={window.location.href} quote='Check this product'>
+                                    <TwitterIcon size={50} round={true}></TwitterIcon>
+                                </TwitterShareButton>
                             </div>
 
-                            <div className="product-detail">
-
-                                <table className="table table-bordered border-secondary nutrationTable">
-                                    <thead>
-                                        <tr>
-                                            <th className='text-center title' colSpan="10">Nutrition Fact</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>Fat</th>
-                                            <td>{product.fat} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Calaries</th>
-                                            <td>{product.calories} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Carbohydrates</th>
-                                            <td>{product.carbohydrates} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Fiber</th>
-                                            <td>{product.fiber} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Sugar</th>
-                                            <td>{product.sugars} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Protrin</th>
-                                            <td>{product.protein} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Vitamin C</th>
-                                            <td>{product.vitamin_c} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Vitamin A</th>
-                                            <td>{product.vitamin_a} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Minerals</th>
-                                            <td>{product.vitamins_and_minerals} <span className='grams'>grams</span> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <h2>about this {product.product_name} </h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam tempora fuga tenetur placeat sapiente architecto illum soluta consequuntur, aspernatur quidem at sequi ipsa!</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis eius. Dignissimos, labore suscipit. Unde.</p>
-
-                                <h2>Advantage </h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis eius. Dignissimos, labore suscipit. Unde.</p>
-                                <h2>DisAdvantage </h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis eius. Dignissimos, labore suscipit. Unde.</p>
-                            </div>
-                            <p>Share At: </p>
-                            <div className="social-links">
-                                <a href="#">
-                                    <i className="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fab fa-twitter"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fab fa-instagram"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fab fa-whatsapp"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fab fa-pinterest"></i>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <ToastContainer />
-            </form>
+            </div>
+            <ToastContainer />
+
         </div>
     )
 }
