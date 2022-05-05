@@ -28,7 +28,7 @@ export const ApprovalPage = () => {
   return (
     <div>
         {
-                loading ? <div className='loader'><FadeLoader color={color}/></div> : <> </>
+                loading ? <div className='loader'><FadeLoader color={color}/>Please Wait...</div> : <> </>
         }
     </div>
   )

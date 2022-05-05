@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { AdminPanal } from './AdminPanal'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ErrorPage } from './ErrorPage'
 
 export const AddProductAdmin = () => {
 
@@ -44,7 +45,7 @@ export const AddProductAdmin = () => {
 
 
 
-
+  let user = localStorage.getItem('userId')
   const [product_name, setProduct_name] = useState('')
   const [description, setDescription] = useState('')
   const [fat, setFat] = useState('')
@@ -58,12 +59,14 @@ export const AddProductAdmin = () => {
   const [vitamins_and_minerals, setVitamins_and_minerals] = useState('')
   const [advantage, setAdvantage] = useState('')
   const [disadvantage, setDisadvantage] = useState('')
+  const [dailyeat, setDailyeat] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = new FormData();
     // formData.append("image",filename);
+    // let user = localStorage.getItem('userId')
     formData.append("image", filename);
     formData.append("product_name", product_name)
     formData.append("description", description)
@@ -80,6 +83,8 @@ export const AddProductAdmin = () => {
     formData.append("disadvantage", disadvantage)
     formData.append("role", role)
     formData.append("catagory", catid)
+    formData.append("user", user)
+    formData.append("dailyeat", dailyeat)
 
 
     axios.post('http://localhost:5000/addproductByAdmin', formData)
@@ -178,6 +183,10 @@ export const AddProductAdmin = () => {
                         <span className="details">Disadvantage</span>
                         <input type="text" onChange={(e) => setDisadvantage(e.target.value)} id="disadvantage" value={disadvantage} name='disadvantage'  />
                       </div>
+                      <div className="input-box">
+                        <span className="details">Is good to eat daily or not?</span>
+                        <input type="text" onChange={(e) => setDailyeat(e.target.value)} id="dailyeat" value={dailyeat} name='dailyeat'  />
+                      </div>
 
                       {/* <select className='selectCat' name='role' onChange={(e) => { handeleRole(e) }} value={role} >
                         {roleOptions.map((roleOptions) => (
@@ -232,7 +241,7 @@ export const AddProductAdmin = () => {
             </div>
           </>
 
-          : <h1>Please Login As Admin </h1>
+          : <h1><ErrorPage/> </h1>
       }
 
     </div>

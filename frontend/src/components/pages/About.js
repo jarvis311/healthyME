@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AdminPanal } from './AdminPanal'
-
+import { ErrorPage } from './ErrorPage';
 export const About = () => {
   const [email, setemail] = useState('')
 
@@ -26,7 +26,7 @@ export const About = () => {
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis necessitatibus iure voluptates deserunt soluta, tempora nemo eveniet iste amet delectus!</p>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis necessitatibus iure voluptates deserunt soluta, tempora nemo eveniet iste amet delectus!</p>
             </div>
-        </> : <h1>Please Login as Admin</h1>
+        </> : <><ErrorPage/></>
       }
           
     </div>

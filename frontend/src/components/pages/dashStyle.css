@@ -157,9 +157,11 @@ input[type="file"] {
 .feedbackUser{
   width: 25vw;
   margin-left: 10px;
+
 }
 
 .feedbackUser textarea{
   background-color: rgb(209, 208, 208);
+  
   
 }

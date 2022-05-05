@@ -6,7 +6,6 @@ const router = express.Router()
 const requireLogin = require('./middleware/requireLogin')
 
 
-
 let storage = multer.diskStorage({
   destination: function(req, file, next){
     next(null, './uploads')
@@ -26,7 +25,9 @@ const userController = require("./controller/user-controler");
 const productController = require("./controller/product-controler")
 const catagoryController = require("./controller/catagory-controler")
 const feedbackController = require("./controller/feedback-controler");
-const { addUserValidation, loginUserValidation, roleValidation} = require("./validation/userValidation");
+const blogController = require("./controller/blog-controler");
+
+// const { addUserValidation, loginUserValidation, roleValidation} = require("./validation/userValidation");
 
 
 const app = express();
@@ -43,12 +44,7 @@ mongoose.connect('mongodb://localhost:27017/healthymedb',function(err){
     console.log(err);
   }
 })
-
-//All urls  
-
-
-
-
+  
 
 
 app.get("/",function(req,res){
@@ -67,19 +63,18 @@ app.post("/saveuser",sessionController.saveuser)
 
 
 //role 
-app.post("/roles",roleValidation, roleController.addRole)
+app.post("/roles", roleController.addRole)
 app.get("/getroles",roleController.getAllRoles)
 app.delete("/roles/:roleId",roleController.deleteRole)
 app.put("/updateroles",roleController.updateRole)
 
 
-
 //user 
-app.post("/users", addUserValidation, userController.addUser)
+app.post("/users", userController.addUser)
 app.get("/getuser",userController.getAllUsers)
 app.put("/updateuser",userController.updateUser)
 app.delete("/deleteusers/:userId",userController.deleteUser)
-app.post("/login",loginUserValidation,userController.login)
+app.post("/login",userController.login)
 //Catagory
 
 app.post("/catagory",catagoryController.addUCatagory)
@@ -99,8 +94,7 @@ app.put("/approve/:productId",productController.updateProductApproval)
 app.delete("/product/:productId",productController.deleteProduct)
 app.put("/like",productController.likeProduct)
 app.post("/addfeedbackProduct",productController.addFeedbackProduct)
-
-
+app.put("/addrecipes/:productId",productController.AddRecipes)
 
 // feedback
 
@@ -108,6 +102,12 @@ app.post("/addfeedback",feedbackController.addFeedback)
 app.get("/getfeedback/:id",feedbackController.getAllFeedback)
 app.put("/updatefeedback",feedbackController.updateFeedback)
 app.delete("/feedback/:feedbackId",feedbackController.deleteFeedback)
+
+
+// blog 
+app.post("/addblog",upload.single('image'), blogController.addBlog)
+app.get("/getallblog", blogController.getAllBlog)
+app.get("/getoneblog/:blogId",blogController.getOneblog)
 
 
 

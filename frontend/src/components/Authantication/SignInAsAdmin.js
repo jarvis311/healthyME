@@ -28,6 +28,7 @@ export const SignInAsAdmin = () => {
                 localStorage.setItem('abcd',email)
                 localStorage.setItem('token',"tokennnnnnnnnnnnnn")
                 localStorage.setItem('Role',json.data.role.roleName)
+                localStorage.setItem('userId',json.data._id)
                 toast(json.msg)
                 setTimeout(() => {
                     navigate('/')

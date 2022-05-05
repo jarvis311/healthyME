@@ -12,6 +12,7 @@ module.exports.addRole = function (req,res){
 
     role.save(function(err,success){
             if(err){
+                
                 console.log(err);
                 //sendMailToDev(err);
                 res.json({msg:"SMW",status:-1,data:req.body})

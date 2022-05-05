@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { AdminPanal } from './AdminPanal';
+import { ErrorPage } from './ErrorPage';
 
 export const GetApprovalProduct = () => {
     const [product, setProduct] = useState([])
@@ -63,7 +64,7 @@ export const GetApprovalProduct = () => {
                         </table>
                     </div>
 
-                </> : <h1>Please Login As Admin</h1>}
+                </> : <h1><ErrorPage/></h1>}
 
         </div>
     )

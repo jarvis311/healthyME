@@ -16,9 +16,10 @@ export const GetAllUserAdminPanal = () => {
         });
         const json = await response.json()
         setProduct(json.data)
+        console.log(typeof product);
         console.log(json.data);
     }, []);
-
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>",product);
     return (
         <div>
             <AdminPanal/>

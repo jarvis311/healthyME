@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AdminPanal } from './AdminPanal';
+import { ErrorPage } from './ErrorPage';
 export const CreateAdmin = () => {
 
     const [credential, setCredential] = useState({ firstName: "", email: "", password: "", role: "" })
@@ -68,7 +69,7 @@ export const CreateAdmin = () => {
 
                 
                 
-                </>  : <h1>Please Login as Admin</h1>
+                </>  : <h1><ErrorPage/></h1>
             }
              
         </div>

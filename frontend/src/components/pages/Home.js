@@ -4,6 +4,7 @@ import { FetchProduct } from './FetchProduct';
 
 
 
+
 const Home = () => {
     // const [email, setemail] = useState('')
    
@@ -20,7 +21,9 @@ const Home = () => {
                 
                 email ? <div>{email}{}</div> : <h1>please login first</h1>   
             }  */}
-            <FetchProduct/> 
+             <FetchProduct/> 
+             
+             
           
         </>
     )

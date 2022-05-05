@@ -51,18 +51,31 @@ export const Navbar = () => {
               </li>
               {
                 useremail ? <> <li className="nav-item">
-                <Link className="nav-link" to="/dashbord">AddProduct</Link>
+              <Link className="nav-link" to="/dashbord">AddProduct</Link>
               </li></> : ''
-              }
+                }
+              
+
               {
                 email ? <> <li className="nav-item">
                   <Link className="nav-link" to="/adminpanal">AdminPanal</Link>
                 </li></> : ''
               }
 
+            <li class="nav-item dropdown blogAction">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                More...
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><Link class="dropdown-item" to='/getblog'>Read Blog</Link></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            {/* <span className="nav-link navUserName">{email ? <span>{email.split('@',[1])}</span> : <span>login</span>}  </span> */}
 
             </ul>
-            {/* <span className="nav-link navUserName">{email ? <span>{email.split('@',[1])}</span> : <span>login</span>}  </span> */}
 
           </div>
         </div>

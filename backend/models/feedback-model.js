@@ -4,14 +4,20 @@ const mongoose = require("mongoose");
 const FeedbackSchema = new mongoose.Schema({
 
         feedback: [{
-                type: String,
-                required: true,      
-                // default:"no feedback"
+                comment: {
+                        type: String,
+                        required: true,
+                },
+                user: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "user"
+                },
+                email:{
+                        type:String,
+                        
+                }
         }],
-        // user: {
-        //         type: mongoose.Schema.Types.ObjectId,
-        //         ref: "user"
-        // }
+       
         product: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "product"
@@ -19,5 +25,5 @@ const FeedbackSchema = new mongoose.Schema({
 })
 
 
-const FeedbackModel = mongoose.model("feedback",FeedbackSchema)
+const FeedbackModel = mongoose.model("feedback", FeedbackSchema)
 module.exports = FeedbackModel 

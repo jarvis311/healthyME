@@ -2,6 +2,7 @@ const ProductModel = require("../models/product-model")
 const express = require('express')
 const router = express.Router()
 const UserModel = require("../models/user-model")
+const nodemailer = require('nodemailer')
 
 // Add Product by users where Approval is false
 module.exports.addProduct = function (req, res) {
@@ -18,14 +19,20 @@ module.exports.addProduct = function (req, res) {
     let vitamins_and_minerals = req.body.vitamins_and_minerals
     let advantage = req.body.advantage
     let disadvantage = req.body.disadvantage
-    let image = req.file.originalname;
+    let image = req.file.originalname
+    let dailyeat = req.body.dailyeat
     let rating = req.body.rating
     let role = req.body.role
     let catagory = req.body.catagory
     let user = req.body.user
-    
+    let recipeHeading = req.body.recipeHeading
+    let step1 = req.body.step1
+    let step2 = req.body.step2
+    let step3 = req.body.step3
+    let step4 = req.body.step4
+    let step5 = req.body.step5
+    let step6 = req.body.step6
     let addSuccess = false;
-
     let product = new ProductModel({
         product_name: product_name,
         description: description,
@@ -41,11 +48,20 @@ module.exports.addProduct = function (req, res) {
         advantage:advantage,
         disadvantage:disadvantage,
         image: image,
+        dailyeat:dailyeat,
         rating:rating,
         role: role,
         user:user,
-        catagory: catagory
+        catagory: catagory,
+        recipeHeading:recipeHeading,
+        step1:step1,
+        step2:step2,
+        step3:step3,
+        step4:step4,
+        step5:step5,
+        step6:step6,
     })
+ 
 
     product.save(function (err, data) {
         if (err) {
@@ -56,6 +72,9 @@ module.exports.addProduct = function (req, res) {
         }
     })
 }
+// Add recipes 
+
+
 // Add Product by Admin where Approval is true 
 module.exports.addProductByAdmin = function (req, res) {
     let product_name = req.body.product_name
@@ -70,12 +89,15 @@ module.exports.addProductByAdmin = function (req, res) {
     let vitamin_a = req.body.vitamin_a
     let vitamins_and_minerals = req.body.vitamins_and_minerals
     let advantage = req.body.advantage
+    let dailyeat = req.body.dailyeat
     let disadvantage = req.body.disadvantage
-    let image = req.file.originalname;
+    let image = req.file.originalname
     let rating = req.body.rating
     let role = req.body.role
     let catagory = req.body.catagory
     let addSuccessAdmin = false;
+    let user = req.body.user
+
 
     let product = new ProductModel({
         product_name: product_name,
@@ -91,11 +113,14 @@ module.exports.addProductByAdmin = function (req, res) {
         vitamins_and_minerals:vitamins_and_minerals,
         advantage:advantage,
         disadvantage:disadvantage,
+        dailyeat:dailyeat,
         image: image,
         rating:rating,
         role: role,
         catagory: catagory,
-        isApproved:true
+        isApproved:true,
+        user:user,
+
     })
 
     product.save(function (err, data) {
@@ -178,6 +203,7 @@ module.exports.updateProduct = function(req,res){
     let disadvantage = req.body.disadvantage
     let updateSuceess = false;
 
+
     ProductModel.updateOne({_id:productId},{product_name:product_name,description:description,fat:fat,calories:calories,carbohydrates:carbohydrates,sugars:sugars,fiber:fiber,protein:protein,vitamin_a:vitamin_a, vitamin_c:vitamin_c, vitamins_and_minerals:vitamins_and_minerals,advantage:advantage,disadvantage:disadvantage}, function(err,data){
         if(err){
             res.json({updateSuceess, msg:"Something went wrong!!!",status:-1,data:err})
@@ -198,6 +224,55 @@ module.exports.updateProductApproval = function(req,res){
             res.json({ msg:"Something went wrong!!!",status:-1,data:err})
         }else{
             res.json({ msg:"Approval updated...",status:200,data:data})
+            
+            let mailTransporter = nodemailer.createTransport({
+                service:"gmail",
+                secure:false,
+                auth:{
+                    user:"playingboy204@gmail.com",
+                    pass:"jarvis@07"
+                }
+            })
+            
+            let details = {
+                from:"playingboy204@gmail.com",
+                // to:req.body.user.email,
+                to:"jigneshpate754622@gmail.com",
+                subject:"From HealtyMe..",
+                text:"Your Product Aprooval is Sucessfull, check on the HealthyMe website.. "
+            
+            }
+            
+            
+            mailTransporter.sendMail(details,(err)=>{
+                if(err){
+                    console.log(err);
+            
+                }else{
+                    console.log("mail has sent");
+                }
+            })
+        }
+    })
+}
+
+// Add Recipe 
+module.exports.AddRecipes = function(req,res){
+
+    //update role set roleName = admin where roleId = 12121
+    let productId = req.params.productId //postman -> userid 
+    let recipeHeading = req.body.recipeHeading
+    let step1 = req.body.step1
+    let step2 = req.body.step2
+    let step3 = req.body.step3
+    let step4 = req.body.step4
+    let step5 = req.body.step5
+    let step6 = req.body.step6
+    ProductModel.updateOne({_id:productId},{recipeHeading:recipeHeading, step1:step1,step2:step2, step3:step3, step4,step4, step5:step5,step6:step6},function(err,data){
+        if(err){
+            res.json({ msg:"Something went wrong!!!",status:-1,data:err})
+        }else{
+            res.json({ msg:"Add Recipes...",status:200,data:data})
         }
     })
 }

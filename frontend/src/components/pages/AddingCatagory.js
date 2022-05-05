@@ -1,10 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AdminPanal } from './AdminPanal';
-
+import { ErrorPage } from './ErrorPage';
 
 export const AddingCatagory = () => {
     const [catagory, setCatagory] = useState('')
@@ -18,7 +18,7 @@ export const AddingCatagory = () => {
         }).then(res => {
             toast("Catagory is Added")
             setTimeout(() => {
-                navigate('/adminpanal')    
+                navigate('/')
             }, 2000);
             console.log(res.data);
         })
@@ -28,7 +28,7 @@ export const AddingCatagory = () => {
         const newdata = { ...catagory }
         newdata[e.target.name] = e.target.value
         setCatagory(newdata)
-       
+
     }
 
 
@@ -41,6 +41,21 @@ export const AddingCatagory = () => {
 
     }, [])
 
+    //
+
+    const [catagoryGet, setCatagoryGet] = useState([])
+    useEffect(async () => {
+        const response = await fetch('http://localhost:5000/getcatagory', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json()
+        setCatagoryGet(json.data)
+        // console.log(typeof product);
+        console.log(json.data);
+    }, []);
 
     return (
         <div >
@@ -57,8 +72,36 @@ export const AddingCatagory = () => {
                                 <button type='submit' className='btn btn-success my-3'>Add Catagory</button>
                                 <ToastContainer />
                             </form>
+                            <table className="table table-success table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Delete</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {
+                                        catagoryGet.map((item) => (
+                                            <tr>
+
+                                                <td>{item.CatagoryName}</td>
+                                                <td>
+                                                    <Link to={`/deleteCatagory/${item._id}`}> <button className='btn btn-danger'>Delete</button></Link>
+                                                </td>
+                                            </tr>
+                                        )
+
+                                        )
+                                    }
+
+
+                                </tbody>
+                            </table>
                         </div>
-                    </> : <h1>Please Login as Admin</h1>
+                    </> : <> <ErrorPage /></>
             }
 
         </div>
